@@ -1,48 +1,66 @@
 """
-Create histograms from a baseline CSV produced by baseline_random.py.
+charts.py
+---------
+Plot score and max‑tile histograms for one **or many** CSV files
+produced by baseline scripts (random, heuristic, RL, etc.).
 
 Usage:
-    python charts.py baseline.csv
-Output:
-    figs/score_hist.png
-    figs/tile_hist.png
+    python charts.py baseline.csv heuristic.csv ppo.csv
 """
 
-import argparse, pathlib
-import pandas as pd
-import matplotlib.pyplot as plt
+import argparse, pathlib, pandas as pd, matplotlib.pyplot as plt
+from pathlib import Path
 
-def main(csv_path: str):
-    df = pd.read_csv(csv_path)
-    pathlib.Path("figs").mkdir(exist_ok=True)
-
-    # Histogram of final scores
+def plot_scores(datasets):
     plt.figure()
-    df["score"].plot.hist(bins=30, rwidth=0.9)
-    plt.title("Random Play Final Scores")
+    for label, df in datasets:
+        df["score"].plot.hist(
+            bins=30, alpha=0.5, label=label, rwidth=0.9
+        )
+    plt.title("Final Scores")
     plt.xlabel("Score")
     plt.ylabel("Frequency")
+    plt.legend()
     plt.tight_layout()
     plt.savefig("figs/score_hist.png")
     plt.close()
 
-    # Histogram of max tile reached
+def plot_tiles(datasets):
     plt.figure()
-    df["max_tile"].plot.hist(
-        bins=[0, 32, 64, 128, 256, 512, 1024, 2048, 4096],
-        rwidth=0.9
-    )
-    plt.title("Random‑Play Max Tile Reached")
+    bins = [0, 32, 64, 128, 256, 512, 1024, 2048, 4096]
+    for label, df in datasets:
+        df["max_tile"].plot.hist(
+            bins=bins, alpha=0.5, label=label, rwidth=0.9
+        )
+    plt.title("Highest Tile Reached")
     plt.xlabel("Tile Value")
     plt.ylabel("Frequency")
+    plt.legend()
     plt.tight_layout()
     plt.savefig("figs/tile_hist.png")
     plt.close()
 
-    print("Charts saved in ./figs/")
+def main(csv_paths):
+    Path("figs").mkdir(exist_ok=True)
+
+    datasets = []
+    for csv_path in csv_paths:
+        label = pathlib.Path(csv_path).stem  # filename without extension
+        df = pd.read_csv(csv_path)
+        datasets.append((label, df))
+
+    plot_scores(datasets)
+    plot_tiles(datasets)
+    print("Charts saved to ./figs/")
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser()
-    ap.add_argument("csv", help="CSV produced by baseline_random.py")
+    ap = argparse.ArgumentParser(
+        description="Overlay histograms for multiple 2048‑agent CSVs"
+    )
+    ap.add_argument(
+        "csvs",
+        nargs="+",
+        help="One or more CSV files produced by baseline or RL scripts",
+    )
     args = ap.parse_args()
-    main(args.csv)
+    main(args.csvs)
