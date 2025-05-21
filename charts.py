@@ -1,7 +1,7 @@
 """
 charts.py
 ---------
-Plot score and max‑tile histograms for one **or many** CSV files
+Plot score and max-tile histograms for one (or many) CSV files
 produced by baseline scripts (random, heuristic, RL, etc.).
 
 Usage:

@@ -34,18 +34,6 @@ python baseline_random.py --episodes 100 --out baseline.csv
 python charts.py baseline.csv
 ```
 
-## 🧠 Project Structure
-
-```bash
-├── engine.py              # Core 2048 logic
-├── baseline_random.py     # Random-agent simulator
-├── charts.py              # Plot score/tile histograms
-├── baseline.csv           # Output of random simulation (generated)
-├── figs/                  # Charts folder (generated)
-├── requirements.txt
-└── README.md
-```
-
 ## 🎮 engine.py – The Game Engine
 
 A pure Python 2048 implementation with no GUI.
@@ -64,12 +52,29 @@ python baseline_random.py --episodes 500 --out baseline.csv
 Output:
 A CSV with 3 columns: episode, score, and max_tile.
 
+## 🎲 baseline_heuristic.py – Basic Heuristic
+
+This script plays N games with the rule of doing the first possible action in the order ```["Left", "Down", "Right", "Up"]``` and records the final score and max tile in each game.
+
+```bash
+python baseline_heuristic.py --episodes 500 --out heuristic.csv
+```
+
+Output:
+A CSV with 3 columns: episode, score, and max_tile.
+
 ## 📈 charts.py – Visualization
 
 Create quick plots from baseline.csv:
 
 ```bash
 python charts.py baseline.csv
+```
+
+or generate a charts with n different csv as parameters
+
+```bash
+python charts.py baseline.csv heuristic.csv
 ```
 
 It generates:
