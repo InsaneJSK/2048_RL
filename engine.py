@@ -10,10 +10,11 @@ class Game2048:
 
     def reset(self):
         self.board = np.zeros((4, 4))
+        self.score = 0
         self.spawn()
         self.spawn()
 
-    def step(self, dir):
+    """def step(self, dir):
         # dir: 0 = up, 1 = down, 2 = left, 3 = right
         original_board = self.board.copy()
 
@@ -22,6 +23,19 @@ class Game2048:
         if not np.array_equal(original_board, self.board):
             self.spawn()
         self.is_game_over()
+"""
+    def step(self, dir):
+        original_board = self.board.copy()
+        self.board = self._move(dir)
+
+        moved = not np.array_equal(original_board, self.board)
+
+        if moved:
+            self.spawn()
+        self.is_game_over()
+
+        return moved
+
 
     def print_board(self):
         print(self.board)
@@ -57,13 +71,18 @@ class Game2048:
         return np.array(merged)
 
     def is_game_over(self):
+        # any zero → not over
         if np.any(self.board == 0):
             self.gameover = False
             return
+
+        original_score = self.score          
         for dir in range(4):
             if not np.array_equal(self.board, self._move(dir)):
+                self.score = original_score
                 self.gameover = False
                 return
+        self.score = original_score
         self.gameover = True
     
     def random_action(self):
