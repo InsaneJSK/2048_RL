@@ -91,13 +91,34 @@ After 500 random games, you might see results like:
 | Avg. Score    |       200-400 |
 | Max. Tile     |    around 128 |
 
+## Baseline_heuristic.py
+
+Following a simple heuristic of the first possible move in the order (left, down, right, up)
+
+First few runs showed it having a worse result than the random agent
+
+## Game2048_env.py
+
+Gymnasium-compatible environment made using the game logic in engine.py
+
+## env_test.py
+
+Simple file to try and test Game2048_env.py file
+
+## train_ppo.py
+
+(subject to changes and tweaks)
+
+## evaluate_ppo.py
+
+(subject to changes and tweaks)
+
 ## 🛣️ What’s Next?
 
 Coming soon:
 
-- Wrap engine in a Gym-compatible Env class
+- Further polish PPO and track its results
 - Train a DQN agent using PyTorch or Stable-Baselines3
-- Run on Colab with GPU
 - Add a Streamlit UI to watch the trained agent play
 
 ## 📜 License

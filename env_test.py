@@ -1,3 +1,9 @@
+"""
+env_test.py
+simple file to try and test Game2048_env.py file
+"""
+
+
 from game2048_env import Game2048Env
 
 env = Game2048Env()
