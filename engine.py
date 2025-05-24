@@ -14,15 +14,6 @@ class Game2048:
         self.spawn()
         self.spawn()
 
-    """def step(self, dir):
-        original_board = self.board.copy()
-
-        self.board = self._move(dir)
-
-        if not np.array_equal(original_board, self.board):
-            self.spawn()
-        self.is_game_over()
-"""
     def step(self, dir):
         # dir: 0 = up, 1 = down, 2 = left, 3 = right
         original_board = self.board.copy()

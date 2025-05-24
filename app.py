@@ -10,7 +10,6 @@ import streamlit.components.v1 as components
 st.set_page_config(page_title="2048 Game", page_icon="🎮", layout="centered")
 
 st.title("🎮 2048 Game")
-st.caption("Built with Python and Streamlit")
 
 # ------------- Create or load game object -------------
 if "game" not in st.session_state:
@@ -62,6 +61,8 @@ game_won  = np.any(board == 2048)
 # ------------- Score & status display -------------
 st.metric("Score", score)
 
+
+# Most important part to hack in JS
 components.html(
     read_index_html(st.session_state.game),
     height=0,

@@ -66,14 +66,3 @@ class Game2048Env(gym.Env):
     @property
     def raw_board(self):
         return self.game.board
-
-"""    # step
-    def step(self, action):
-        prev = self.game.score
-        self.game.step(action)
-        reward      = self.game.score - prev
-        terminated  = self.game.gameover
-        truncated   = False
-        info        = {}
-        return self._get_obs(), reward, terminated, truncated, info
-"""   
