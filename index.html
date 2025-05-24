@@ -1,0 +1,32 @@
+
+    <script>
+    const streamlitDoc = window.parent.document;
+
+    const buttons = Array.from(streamlitDoc.querySelectorAll('.stButton > button'));
+    //console.log(buttons) // find buttons in console tab
+
+    const left_button = buttons.find(el => el.innerText.includes('Left'));
+    const right_button = buttons.find(el => el.innerText.includes('Right'));
+    const up_button = buttons.find(el => el.innerText.includes('Up'));
+    const down_button = buttons.find(el => el.innerText.includes('Down'));
+    const reset_button = buttons.find(el => el.innerText.includes("Reset"));
+
+    streamlitDoc.addEventListener('keydown', function(e) {
+        switch (e.key) {
+            case 'ArrowLeft':
+                left_button.click();
+                break;
+            case 'ArrowRight':
+                right_button.click();
+                break;
+            case 'ArrowUp':
+                up_button.click();
+                break;
+            case 'ArrowDown':
+                down_button.click();
+                break;
+            case 'r':
+                reset_button.click();
+        }
+    });
+    </script>
